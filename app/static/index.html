@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Movie Recommendations</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="bg-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="glass-panel">
+                <h2>My Profile</h2>
+                <p class="text-muted" style="margin-top: 0.5rem; font-size: 0.9rem;">Rate movies to get personalized recommendations based on AI semantic matching.</p>
+                <div style="margin-top: 1rem;">
+                    <h3>Liked Movies</h3>
+                    <ul id="liked-movies-list" style="list-style: none; margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-muted);">
+                        <!-- Populated by JS -->
+                        <li>No movies liked yet.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="glass-panel">
+                <h3 style="display: flex; justify-content: space-between; align-items: center;">
+                    For You
+                    <button id="refresh-recs-btn" class="btn" title="Refresh Recommendations"><i data-lucide="refresh-cw" width="16" height="16"></i></button>
+                </h3>
+                <div id="personalized-recs" class="movie-grid" style="grid-template-columns: 1fr; margin-top: 1rem;">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+            
+            <div class="glass-panel" id="metrics-panel">
+                <h3>System Metrics</h3>
+                <div style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-muted);">
+                    <div style="display:flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span>Precision:</span> <span id="metric-precision" style="color: white; font-weight: bold;">--</span>
+                    </div>
+                    <div style="display:flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span>Recall:</span> <span id="metric-recall" style="color: white; font-weight: bold;">--</span>
+                    </div>
+                    <div style="display:flex; justify-content: space-between;">
+                        <span>Improvement:</span> <span id="metric-improvement" style="color: var(--accent); font-weight: bold;">--</span>
+                    </div>
+                </div>
+                <button id="run-eval-btn" class="btn" style="width: 100%; margin-top: 1rem; font-size: 0.8rem;">Run Offline Evaluation</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header>
+                <h1>Explore Movies</h1>
+                <div class="search-bar" style="margin-top: 1.5rem;">
+                    <i data-lucide="search" style="color: var(--text-muted)"></i>
+                    <input type="text" id="search-input" placeholder="Search by title or genre...">
+                </div>
+            </header>
+
+            <div class="movie-grid" id="main-movie-grid">
+                <!-- Populated by JS -->
+            </div>
+            
+            <div style="text-align: center; margin-top: 2rem;">
+                <button id="load-more-btn" class="btn primary">Load More</button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Movie Detail Modal -->
+    <div class="modal-overlay" id="movie-modal">
+        <div class="glass-panel modal-content">
+            <button class="close-btn" id="close-modal-btn"><i data-lucide="x"></i></button>
+            
+            <img src="" alt="Poster" class="modal-poster" id="modal-poster">
+            
+            <div class="modal-details">
+                <h2 id="modal-title" style="font-size: 2rem; margin-bottom: 0.5rem;">Movie Title</h2>
+                <div class="movie-meta" style="margin-bottom: 1.5rem; justify-content: flex-start; gap: 1rem;">
+                    <span id="modal-year">2023</span>
+                    <span style="color: #f1c40f;"><i data-lucide="star" width="14" height="14" style="display:inline; vertical-align:text-bottom;"></i> <span id="modal-rating">8.5</span></span>
+                </div>
+                
+                <div id="modal-genres" style="margin-bottom: 1.5rem;">
+                    <!-- Tags -->
+                </div>
+                
+                <p id="modal-overview" style="color: var(--text-muted); line-height: 1.6; margin-bottom: 1.5rem;">
+                    Overview text goes here...
+                </p>
+                
+                <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
+                    <button class="btn primary" id="btn-like"><i data-lucide="heart" width="16" height="16" style="display:inline; vertical-align:text-bottom; margin-right: 0.5rem;"></i> Like</button>
+                    <button class="btn" id="btn-dislike"><i data-lucide="thumbs-down" width="16" height="16" style="display:inline; vertical-align:text-bottom; margin-right: 0.5rem;"></i> Dislike</button>
+                </div>
+                
+                <h3>Similar Movies (AI Recommended)</h3>
+                <div class="movie-grid" id="modal-similar-grid" style="grid-template-columns: repeat(3, 1fr); margin-top: 1rem; gap: 1rem;">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
